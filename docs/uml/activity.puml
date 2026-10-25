@@ -1,0 +1,28 @@
+@startuml
+title Figure 3.4 — Activity diagram
+
+start
+
+repeat
+  :Retrieve unprocessed review from database;
+  :Preprocess text\n(clean and tokenise);
+  :Classify sentiment\n(VADER compound score);
+
+  if (compound >= positiveThreshold?) then (yes)
+    :Label = Happy;
+  elseif (compound <= negativeThreshold?) then (yes)
+    :Label = Angry;
+  else (no)
+    :Label = Neutral;
+  endif
+
+  :Store result in SentimentResults;
+  :Update dashboard data;
+
+repeat while (More unprocessed reviews?) is (yes)
+
+-> no;
+:Wait for poll interval;
+stop
+
+@enduml

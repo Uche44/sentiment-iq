@@ -1,0 +1,52 @@
+@startuml
+title Figure 3.2 — Class diagram
+
+class User {
+  - userID : int
+  - username : String
+  - password : String
+  - role : String
+  + login() : boolean
+  + logout() : void
+}
+
+class Product {
+  - productID : int
+  - productName : String
+  - category : String
+}
+
+class Review {
+  - reviewID : int
+  - customerName : String
+  - reviewText : String
+  - dateSubmitted : DateTime
+}
+
+class SentimentResult {
+  - resultID : int
+  - sentimentLabel : String
+  - confidenceScore : float
+  - dateProcessed : DateTime
+}
+
+class NLPEngine {
+  + preprocess(text : String) : PreprocessResult
+  + classify(text : String) : Classification
+  + analyse(text : String) : Analysis
+}
+
+class Dashboard {
+  + getDistribution() : Distribution
+  + getTrend(from : Date, to : Date, interval : String) : TrendPoint[]
+  + getKeywords(limit : int) : Keyword[]
+  + getRecentReviews(limit : int, offset : int) : Review[]
+}
+
+Product "1" -- "*" Review : has
+Review "1" -- "0..1" SentimentResult : produces
+NLPEngine ..> SentimentResult : produces
+Dashboard ..> SentimentResult : aggregates
+User --> Dashboard : uses
+
+@enduml

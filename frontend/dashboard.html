@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — SentimentIQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="dashboard-body">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="topbar">
+      <div class="topbar__brand">
+        <div class="logo">
+          <span class="logo-mark" aria-hidden="true">⚡</span
+          ><span id="company-name">SentimentIQ</span>
+        </div>
+        <span class="pill pill--muted" id="brand-pill">SentimentIQ</span>
+      </div>
+      <div class="topbar__actions">
+        <span class="mono-chip user-chip" id="user-name">—</span>
+        <button
+          class="icon-btn"
+          id="logout-button"
+          type="button"
+          title="Log out"
+          aria-label="Log out"
+        >
+          ⏻
+        </button>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <nav class="side-nav" aria-label="Dashboard sections">
+          <a class="side-nav__item" href="#/overview" data-nav="overview">
+            <span class="side-nav__index" aria-hidden="true">01</span>
+            <span class="side-nav__label">Overview</span>
+          </a>
+          <a class="side-nav__item" href="#/reviews" data-nav="reviews">
+            <span class="side-nav__index" aria-hidden="true">02</span>
+            <span class="side-nav__label">Reviews</span>
+            <span class="side-nav__count" data-nav-count="reviews">—</span>
+          </a>
+          <a class="side-nav__item" href="#/complaints" data-nav="complaints">
+            <span class="side-nav__index" aria-hidden="true">03</span>
+            <span class="side-nav__label">Complaints</span>
+            <span class="side-nav__count" data-nav-count="complaints">—</span>
+          </a>
+          <a class="side-nav__item" href="#/products" data-nav="products">
+            <span class="side-nav__index" aria-hidden="true">04</span>
+            <span class="side-nav__label">Products</span>
+          </a>
+          <a class="side-nav__item" href="#/feedback" data-nav="feedback">
+            <span class="side-nav__index" aria-hidden="true">05</span>
+            <span class="side-nav__label">Feedback</span>
+          </a>
+        </nav>
+        <p class="sidebar__foot mono muted">Auto-updates every 30 seconds</p>
+      </aside>
+
+      <main class="shell" id="main-content" tabindex="-1">
+        <!-- Overview -->
+        <section class="view" data-view="overview" aria-labelledby="overview-title">
+          <header class="view-head">
+            <p class="mono muted view-head__eyebrow">Overview</p>
+            <h1 class="display-2 view-head__title" id="overview-title" tabindex="-1">
+              <span>Know how your customers feel about your services</span
+              ><span class="spark" aria-hidden="true">✳</span>
+            </h1>
+            <p class="mono muted refresh-note" id="refresh-note">
+              Last refreshed — • auto-updates every 30 seconds
+            </p>
+          </header>
+
+          <section class="summary-panel card" id="summary-panel" aria-busy="true">
+            <span class="mono summary-panel__label">Total verdicts</span>
+            <span class="display summary-panel__value" id="total-reviews">—</span>
+            <span class="muted summary-panel__sub" id="total-sub"
+              >collected from customer feedback</span
+            >
+            <a class="btn btn--ghost" href="#/reviews">+ See the work</a>
+            <p class="widget-error" id="summary-error" hidden></p>
+          </section>
+
+          <section class="stat-grid" aria-label="Sentiment summary">
+            <article class="stat card stat--happy">
+              <div class="stat__top">
+                <span class="stat__label"
+                  ><span class="face face--happy" aria-hidden="true">😊</span>Happy signal</span
+                >
+                <span class="stat__pct" id="happy-pct">—</span>
+              </div>
+              <span class="stat__value" id="happy-count">—</span>
+              <span class="stat__foot">Positive feedback</span>
+            </article>
+
+            <article class="stat card stat--angry">
+              <div class="stat__top">
+                <span class="stat__label"
+                  ><span class="face face--angry" aria-hidden="true">😠</span>Angry verdict</span
+                >
+                <span class="stat__pct" id="angry-pct">—</span>
+              </div>
+              <span class="stat__value" id="angry-count">—</span>
+              <span class="stat__foot">Needs attention</span>
+            </article>
+
+            <article class="stat card stat--neutral">
+              <div class="stat__top">
+                <span class="stat__label"
+                  ><span class="face face--neutral" aria-hidden="true">😐</span>Neutral
+                  verdict</span
+                >
+                <span class="stat__pct" id="neutral-pct">—</span>
+              </div>
+              <span class="stat__value" id="neutral-count">—</span>
+              <span class="stat__foot">Mixed signals</span>
+            </article>
+
+            <article class="stat card stat--pending">
+              <div class="stat__top">
+                <span class="stat__label"
+                  ><span
+                    class="face face--pending"
+                    aria-hidden="true"
+                    style="background: var(--white)"
+                    >⏳</span
+                  >Queue / idle</span
+                >
+                <span class="stat__pct" id="pending-state">—</span>
+              </div>
+              <span class="stat__value" id="pending-count">—</span>
+              <span class="stat__foot">Awaiting analysis</span>
+            </article>
+          </section>
+
+          <section class="panel card" id="trend-panel" aria-busy="true">
+            <div class="panel__head">
+              <h2 class="panel__title">Mood over time</h2>
+              <span class="mono muted">Rolling average</span>
+            </div>
+
+            <div class="trend-controls">
+              <label class="control"
+                >From
+                <input type="date" id="trend-from" />
+              </label>
+              <label class="control"
+                >To
+                <input type="date" id="trend-to" />
+              </label>
+              <div class="segmented" id="trend-interval" role="group" aria-label="Trend interval">
+                <button type="button" data-interval="day">Day</button>
+                <button type="button" data-interval="week" class="is-active">Week</button>
+                <button type="button" data-interval="month">Month</button>
+              </div>
+            </div>
+
+            <div class="chart-wrap">
+              <canvas id="trend-chart" role="img" aria-label="Sentiment trend over time"></canvas>
+            </div>
+            <p class="widget-error" id="trend-error" hidden></p>
+
+            <div class="legend" aria-hidden="true">
+              <span class="legend__item"
+                ><span class="legend__swatch" style="background: var(--happy)"></span>😊 Happy</span
+              >
+              <span class="legend__item"
+                ><span class="legend__swatch" style="background: var(--neutral)"></span>😐
+                Neutral</span
+              >
+              <span class="legend__item"
+                ><span class="legend__swatch" style="background: var(--angry)"></span>😠 Angry</span
+              >
+            </div>
+          </section>
+
+          <section class="panel card" id="distribution-panel" aria-busy="true">
+            <div class="panel__head">
+              <h2 class="panel__title">Mood split</h2>
+              <span class="pill">N = <span id="dist-total">—</span></span>
+            </div>
+
+            <div class="split-layout">
+              <div class="doughnut-wrap">
+                <canvas
+                  id="distribution-chart"
+                  role="img"
+                  aria-label="Sentiment distribution"
+                ></canvas>
+                <div class="doughnut-center">
+                  <strong id="dist-center-total">—</strong>
+                  <span>Reviews</span>
+                </div>
+              </div>
+              <ul class="split-legend" id="split-legend"></ul>
+            </div>
+            <p class="widget-error" id="distribution-error" hidden></p>
+          </section>
+        </section>
+
+        <!-- Reviews -->
+        <section class="view" data-view="reviews" hidden aria-labelledby="reviews-title">
+          <header class="view-head">
+            <p class="mono muted view-head__eyebrow">Reviews</p>
+            <h1 class="display-2 view-head__title" id="reviews-title" tabindex="-1">
+              Every verdict, in one place
+            </h1>
+            <p class="muted view-head__sub">
+              Classified customer feedback, newest first. Filter by sentiment to read the room.
+            </p>
+          </header>
+
+          <section class="panel card" id="reviews-panel">
+            <div class="panel__head">
+              <h2 class="panel__title">Customer feedback</h2>
+              <label class="control" for="review-filter"
+                >Filter
+                <select id="review-filter">
+                  <option value="">All sentiments</option>
+                  <option value="Happy">😊 Happy</option>
+                  <option value="Angry">😠 Angry</option>
+                  <option value="Neutral">😐 Neutral</option>
+                </select>
+              </label>
+            </div>
+
+            <p class="mono muted feed-status" id="reviews-status" role="status">Loading…</p>
+
+            <div class="review-list" id="review-list">
+              <p class="loading-text">Loading reviews…</p>
+            </div>
+            <p class="widget-error" id="reviews-error" hidden></p>
+
+            <div class="panel__actions">
+              <button class="btn btn--ghost" type="button" id="load-more" hidden>Load more</button>
+            </div>
+          </section>
+        </section>
+
+        <!-- Complaints -->
+        <section class="view" data-view="complaints" hidden aria-labelledby="complaints-title">
+          <header class="view-head">
+            <p class="mono muted view-head__eyebrow">Complaints</p>
+            <h1 class="display-2 view-head__title" id="complaints-title" tabindex="-1">
+              What is driving the anger
+            </h1>
+            <p class="muted view-head__sub">
+              The words customers repeat, and the reviews behind every angry verdict.
+            </p>
+          </header>
+
+          <section class="panel card" id="keywords-panel" aria-busy="true">
+            <div class="panel__head">
+              <h2 class="panel__title">Most repeated complaints</h2>
+              <span class="pill pill--angry">Angrier</span>
+            </div>
+            <p class="mono muted panel__sub" id="keywords-note">Matching — angry reviews</p>
+            <ol class="keyword-list" id="keyword-list"></ol>
+            <p class="widget-error" id="keywords-error" hidden></p>
+          </section>
+
+          <section class="panel card" id="angry-panel">
+            <div class="panel__head">
+              <h2 class="panel__title">The reviews behind it</h2>
+              <span class="pill pill--angry">Newest first</span>
+            </div>
+
+            <p class="mono muted feed-status" id="angry-status" role="status">Loading…</p>
+
+            <div class="review-list" id="angry-list">
+              <p class="loading-text">Loading reviews…</p>
+            </div>
+            <p class="widget-error" id="angry-error" hidden></p>
+
+            <div class="panel__actions">
+              <button class="btn btn--ghost" type="button" id="angry-more" hidden>Load more</button>
+            </div>
+          </section>
+        </section>
+
+        <!-- Products -->
+        <section class="view" data-view="products" hidden aria-labelledby="products-title">
+          <header class="view-head">
+            <p class="mono muted view-head__eyebrow">Products</p>
+            <h1 class="display-2 view-head__title" id="products-title" tabindex="-1">
+              Which products make people angry
+            </h1>
+            <p class="muted view-head__sub">
+              Ranked by the share of angry verdicts. Products with fewer than five classified
+              reviews are left out.
+            </p>
+          </header>
+
+          <section class="panel card" id="products-panel" aria-busy="true">
+            <div class="panel__head">
+              <h2 class="panel__title">Anger leaderboard</h2>
+              <span class="pill pill--angry">Top 10</span>
+            </div>
+            <p class="mono muted feed-status" id="products-status" role="status">Loading…</p>
+
+            <div class="leaderboard-wrap">
+              <table class="leaderboard">
+                <caption class="visually-hidden">
+                  Products ranked by share of angry verdicts
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Angry share</th>
+                    <th scope="col">Angry</th>
+                  </tr>
+                </thead>
+                <tbody id="product-rows"></tbody>
+              </table>
+            </div>
+            <p class="widget-error" id="products-error" hidden></p>
+          </section>
+        </section>
+
+        <!-- Feedback -->
+        <section class="view" data-view="feedback" hidden aria-labelledby="feedback-title">
+          <header class="view-head">
+            <p class="mono muted view-head__eyebrow">Feedback</p>
+            <h1 class="display-2 view-head__title" id="feedback-title" tabindex="-1">
+              Test the engine
+            </h1>
+            <p class="muted view-head__sub">
+              Submit a review and watch the sentiment engine classify it immediately.
+            </p>
+          </header>
+
+          <section class="panel card" id="submit">
+            <div class="panel__head">
+              <h2 class="panel__title">Submit sample feedback</h2>
+              <span class="pill pill--muted">Test the engine</span>
+            </div>
+            <p class="mono muted panel__sub">
+              Reviews are stored and classified by the same engine that scores imported data
+            </p>
+
+            <form id="review-form" novalidate>
+              <div class="form-grid">
+                <label class="field" for="product-name">
+                  <span class="field__label"
+                    >Product name <span class="field__meta">Required</span></span
+                  >
+                  <input
+                    id="product-name"
+                    name="productName"
+                    type="text"
+                    list="product-options"
+                    autocomplete="off"
+                    maxlength="100"
+                  />
+                  <datalist id="product-options"></datalist>
+                  <span class="field__error" id="productName-error" role="alert"></span>
+                </label>
+
+                <label class="field" for="customer-name">
+                  <span class="field__label"
+                    >Customer name <span class="field__meta">Required</span></span
+                  >
+                  <input
+                    id="customer-name"
+                    name="customerName"
+                    type="text"
+                    autocomplete="off"
+                    maxlength="100"
+                  />
+                  <span class="field__error" id="customerName-error" role="alert"></span>
+                </label>
+
+                <label class="field field--full" for="review-text">
+                  <span class="field__label"
+                    >Review text <span class="field__meta">3–5000 chars</span></span
+                  >
+                  <textarea id="review-text" name="reviewText" maxlength="5000"></textarea>
+                  <span class="field__error" id="reviewText-error" role="alert"></span>
+                </label>
+              </div>
+
+              <p class="form-result" id="review-result" role="status" aria-live="polite"></p>
+              <p class="form-error" id="review-form-error" role="alert" aria-live="polite"></p>
+
+              <div class="form-actions">
+                <button class="btn btn--primary" type="submit" id="review-submit">
+                  Send for analysis
+                </button>
+                <span class="loading-text" id="review-pending" hidden>Classifying…</span>
+              </div>
+            </form>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="review-template">
+      <article class="review">
+        <div class="review__head">
+          <span class="badge"></span>
+          <span class="review__date"></span>
+        </div>
+        <p class="review__meta"></p>
+        <p class="review__text"></p>
+        <button class="review__toggle" type="button" hidden>Read more</button>
+      </article>
+    </template>
+
+    <script src="/vendor/chart.umd.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/charts.js"></script>
+    <script src="/js/dashboard.js"></script>
+  </body>
+</html>

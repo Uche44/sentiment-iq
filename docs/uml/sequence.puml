@@ -1,0 +1,36 @@
+@startuml
+title Figure 3.3 — Sequence diagram
+
+actor "Business Manager" as Manager
+participant "Browser" as Browser
+participant "Node.js Server" as Server
+participant "MySQL" as DB
+participant "NLP Engine" as NLP
+
+Manager -> Browser : enter username and password
+Browser -> Server : POST /api/auth/login
+Server -> DB : SELECT user WHERE username = ?
+DB --> Server : username, password hash, role
+Server -> Server : bcrypt.compare() + sign JWT
+Server --> Browser : 200 OK + httpOnly session cookie
+
+Browser -> Server : GET /dashboard (cookie)
+Server -> Server : verify JWT
+Server --> Browser : dashboard.html
+
+Browser -> Server : GET /api/stats/* (cookie)
+Server -> Server : verify JWT
+
+Server -> DB : retrieve unprocessed reviews
+DB --> Server : review rows
+Server -> NLP : analyse(reviewText)
+NLP -> NLP : preprocess text
+NLP -> NLP : classify sentiment
+NLP --> Server : label + confidence score
+Server -> DB : store SentimentResults
+Server -> DB : aggregate distribution, trend, keywords
+DB --> Server : chart data
+Server --> Browser : JSON chart data
+Browser -> Browser : render charts and recent reviews
+
+@enduml

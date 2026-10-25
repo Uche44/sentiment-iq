@@ -25,7 +25,7 @@ const config = {
   },
 
   cookieSecure: process.env.COOKIE_SECURE === 'true',
-  companyName: process.env.COMPANY_NAME || 'StyleHouse',
+  companyName: process.env.COMPANY_NAME || 'SentimentIQ',
 
   manager: {
     username: process.env.MANAGER_USERNAME || 'manager',

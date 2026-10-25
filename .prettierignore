@@ -1,0 +1,10 @@
+node_modules/
+frontend/vendor/
+evaluation/results/
+package-lock.json
+data/
+screens/
+agents.md
+MILESTONES.md
+README.md
+docs/

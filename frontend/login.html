@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in — SentimentIQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="login-body">
+    <header class="login-hero">
+      <span class="brand-chip">◈ SentimentIQ</span>
+      <h1 class="display">Know how<br />they feel.</h1>
+
+      <div class="faces" aria-hidden="true">
+        <span class="face face--happy">😊</span>
+        <span class="face face--neutral">😐</span>
+        <span class="face face--angry">😠</span>
+      </div>
+
+      <p class="hero-strip">Reads 22,000+ reviews so you don't have to</p>
+    </header>
+
+    <main class="login-card card">
+      <div class="login-card__head">
+        <div class="logo"><span class="logo-mark" aria-hidden="true">⚡</span>SentimentIQ</div>
+        <span class="mono-chip">IQ v2.4</span>
+      </div>
+
+      <h2 class="display-2">Welcome back.</h2>
+      <p class="muted login-card__intro">Sign in to see how your customers feel.</p>
+
+      <form id="login-form" novalidate>
+        <label class="field" for="username">
+          <span class="field__label">Username <span class="field__meta">SKU: OP-01</span></span>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            autocapitalize="none"
+            spellcheck="false"
+            aria-describedby="username-error"
+          />
+          <span class="field__error" id="username-error" role="alert"></span>
+        </label>
+
+        <label class="field" for="password">
+          <span class="field__label">Password <span class="field__meta">Access 04</span></span>
+          <span class="password-wrap">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              aria-describedby="password-error"
+            />
+            <button
+              class="password-toggle"
+              type="button"
+              id="toggle-password"
+              aria-label="Show password"
+            >
+              Show
+            </button>
+          </span>
+          <span class="field__error" id="password-error" role="alert"></span>
+        </label>
+
+        <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
+
+        <button class="btn btn--primary" type="submit" id="login-button">
+          <span aria-hidden="true">☝</span> Sign in
+        </button>
+      </form>
+
+      <footer class="login-foot">
+        <span class="mono-chip">Thread • No. 80</span>
+        <p class="lock-note">🔒 Manager access only • RSA 4096-bit Tailor Vault</p>
+      </footer>
+    </main>
+
+    <noscript>
+      <p class="lock-note" style="margin-top: 1rem">JavaScript is required to sign in.</p>
+    </noscript>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/login.js"></script>
+  </body>
+</html>

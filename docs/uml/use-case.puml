@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+title Figure 3.1 — Use-case diagram
+
+actor "Business Manager" as Manager
+actor "Sentiment Analysis\nEngine" as Engine <<system>>
+
+rectangle "Web-Based Sentiment Analysis System" {
+  usecase "Log in" as UC_Login
+  usecase "View sentiment dashboard" as UC_Dashboard
+  usecase "View analytics reports\n(distribution, trend, keywords)" as UC_Analytics
+  usecase "Submit sample feedback" as UC_Submit
+  usecase "Log out" as UC_Logout
+
+  usecase "Retrieve new reviews" as UC_Retrieve
+  usecase "Preprocess text" as UC_Preprocess
+  usecase "Classify sentiment" as UC_Classify
+  usecase "Store results" as UC_Store
+  usecase "Update dashboard data" as UC_Update
+}
+
+Manager --> UC_Login
+Manager --> UC_Dashboard
+Manager --> UC_Analytics
+Manager --> UC_Submit
+Manager --> UC_Logout
+
+Engine --> UC_Retrieve
+Engine --> UC_Preprocess
+Engine --> UC_Classify
+Engine --> UC_Store
+Engine --> UC_Update
+
+UC_Submit ..> UC_Classify : <<include>>
+
+@enduml

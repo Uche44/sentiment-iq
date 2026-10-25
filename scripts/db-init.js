@@ -5,9 +5,7 @@ const config = require('../src/config');
 
 async function main() {
   const schemaPath = path.join(__dirname, '..', 'db', 'schema.sql');
-  const sql = fs
-    .readFileSync(schemaPath, 'utf8')
-    .replace(/__DB_NAME__/g, config.db.database);
+  const sql = fs.readFileSync(schemaPath, 'utf8').replace(/__DB_NAME__/g, config.db.database);
 
   const connection = await mysql.createConnection({
     host: config.db.host,
@@ -23,7 +21,9 @@ async function main() {
       `SELECT TABLE_NAME AS name FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? ORDER BY TABLE_NAME`,
       [config.db.database]
     );
-    console.log(`Database "${config.db.database}" ready. Tables: ${tables.map((t) => t.name).join(', ')}`);
+    console.log(
+      `Database "${config.db.database}" ready. Tables: ${tables.map((t) => t.name).join(', ')}`
+    );
   } finally {
     await connection.end();
   }
